@@ -4,9 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Quiz Maker</title>
 </head>
 <body>
+<!-- Home Screen -->
+ <section id="home" class="screen active">
+<div class="topic-grid">
+    <div class="topic-card" data-topic="math">
+        <h3>Math</h3>
+    </div>
+    <div class="topic-card" data-topic="science">
+        <h3>Science</h3>
+    </div>
+    <div class="topic-card" data-topic="history">
+        <h3>History</h3>
+</div>
+    <div class="topic-card" data-topic="literature">
+        <h3>Literature</h3>
+    </div>
+    <div class="topic-card" data-topic="geography">
+        <h3>Geography</h3>
+    </div>
+    <div class="topic-card" data-topic="sports">
+        <h3>Sports</h3>
+    </div>
+<div class="topic-card" data-topic="movies">
+        <h3>Movies</h3>
+    </div>
+</div>
+ </section>
+
+ <!-- Quiz Screen -->
+    <section id="quiz" class="screen">
+        <div class="quiz-header">
+            <span id="progress-text">Question 1 of 10</span>
+            <span id="score-text">Score: 0</span>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div> 
+        </div>
+
+        <h2 id="question-text"></h2>
+
+        <div id="answers" class="answers"></div>>
+
+        <button id="next-btn" disabled>Next Question</button>
+    </section>
+            
     
 
     <script src="script.js"></script>
