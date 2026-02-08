@@ -75,3 +75,94 @@ if (document.getElementById('basketball-quiz')) {
     new BasketballFinal();
             
 }
+
+if (document.querySelector(".results-screen")) {
+
+    const score = Number(localStorage.getItem("quizScore")) || 0;
+
+    const total = Number(localStorage.getItem("totalQuestions")) || 1;
+
+    const finalScoreEl = document.getElementById("final-score");
+
+    const percentEl = document.getElementById("percentage");
+
+    if (total > 1) {
+        const percent = Math.round((score / total) * 100);
+        finalScoreEl.textContent = `You scored ${score} out of ${total}!`;
+
+        percentEl.textContent = `${percent}%`;
+    } else {
+        finalScoreEl.textContent = "No score recorded.";
+    }
+
+    const retryBtn = document.getElementById("retry-btn");
+
+    retryBtn.addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href = "index.html";
+    });
+
+    const homeBtn = document.getElementById("home-btn");
+
+    homeBtn.addEventListener("click", () => {
+        localStorage.clear();
+        window.location.href = "index.html";
+
+    });
+}
+
+const canvas = document.getElementById("confetti-canvas");
+  const ctx = canvas.getContext("2d");
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+
+  const pieces = Array.from({ length: 150 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    r: Math.random() * 6 + 4,
+    d: Math.random() * 6 + 2,
+    color: `hsl(${Math.random() * 360}, 80%, 60%)`,
+    tilt: Math.random() * 10
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    pieces.forEach(p => {
+      ctx.beginPath();
+      ctx.lineWidth = p.r;
+      ctx.strokeStyle = p.color;
+      ctx.moveTo(p.x + p.tilt, p.y);
+      ctx.lineTo(p.x, p.y + p.tilt + p.r);
+      ctx.stroke();
+    });
+
+    update();
+  }
+
+  let angle = 0;
+
+  function update() {
+    angle += 0.01;
+
+    pieces.forEach(p => {
+      p.y += Math.cos(angle) + p.d;
+      p.x += Math.sin(angle);
+
+      if (p.y > canvas.height) {
+        p.y = -20;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+  }
+
+  (function animate() {
+    draw();
+    requestAnimationFrame(animate);
+  })();
