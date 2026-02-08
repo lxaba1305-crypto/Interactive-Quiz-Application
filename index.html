@@ -9,36 +9,37 @@
 </head>
 <body>
 <!-- Home Screen -->
- <section id="home" class="screen active">
-<div class="topic-grid">
+<section id="home" class="screen active">
+  <h1 class="home-title">Choose a Sport</h1>
+
+  <div class="topic-grid">
+
     <div class="topic-card" data-topic="soccer">
+      <img src="images/soccer.jpg" alt="Soccer" class="topic-image" />
+      <div class="topic-overlay">
         <h3>Soccer</h3>
+        <button class="start-btn" data-link="soccer.html">Start Quiz</button>
+      </div>
     </div>
-    <div class="topic-card" data-topic="Cricket">
+
+    <div class="topic-card" data-topic="cricket">
+      <img src="images/cricket.jpg" alt="Cricket" class="topic-image" />
+      <div class="topic-overlay">
         <h3>Cricket</h3>
+        <button class="start-btn" data-link="cricket.html">Start Quiz</button>
+      </div>
     </div>
-    <div class="topic-card" data-topic="Basketball">
-     <a href="basketball.html">   <h3>Basketball</h3> </a>
 
- </section>
+    <div class="topic-card" data-topic="basketball">
+      <img src="images/Basketball 1.jpg" alt="Basketball" class="topic-image" />
+      <div class="topic-overlay">
+        <h3>Basketball</h3>
+        <button class="start-btn" data-link="basketball.html">Start Quiz</button>
+      </div>
+    </div>
 
- <!-- Quiz Screen -->
-    <section id="quiz" class="screen">
-        <div class="quiz-header">
-            <span id="progress-text">Question 1 of 3</span>
-            <span id="score-text">Score: 0</span>
-        </div>
-
-        <div class="progress-bar">
-            <div class="progress-fill"></div> 
-        </div>
-
-        <h2 id="question-text"></h2>
-
-        <div id="answers" class="answers"></div>>
-
-        <button id="next-btn" disabled>Next Question</button>
-    </section>
+  </div>
+</section>
             
     
 
