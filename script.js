@@ -14,9 +14,10 @@ if (document.getElementById('basketball-quiz')) {
             this.score =
             Number(localStorage.getItem("quizScore")) || 0;
 
-            this.total =
-            Number(localStorage.getItem("totalQuestions")) || 1;
+            this.total = 3;
 
+            // Remove direct style manipulation; feedback will be controlled by CSS classes
+            this.feedback.classList.remove("show", "correct", "incorrect");
 
             this.updateScore();
             this.attachEvents()
@@ -47,21 +48,23 @@ if (document.getElementById('basketball-quiz')) {
                 b.classList.remove("correct", "incorrect")
             );
 
+            // Remove any previous feedback classes
+            this.feedback.classList.remove("show", "correct", "incorrect");
+
             if (index === this.correctIndex) {
                 this.score++;
                 btn.classList.add("correct");
                 this.feedback.textContent = "Correct! 🏀";
+                this.feedback.classList.add("show", "correct");
             } else {
                 btn.classList.add("incorrect");
                 this.button[this.correctIndex].classList.add("correct");
-
-                this.feedback.textContent =
-                    "Wrong! The correct answer was LeBron James.";
+                this.feedback.textContent = "Wrong! The correct answer was LeBron James.";
+                this.feedback.classList.add("show", "incorrect");
             }
 
-            this.total++;
             localStorage.setItem("quizScore", this.score);
-            localStorage.setItem("totalQuestions", this.total);
+            localStorage.setItem("totalQuestions", 3);
 
             this.updateScore();
             this.finishBtn.disabled = false;
@@ -80,17 +83,29 @@ if (document.querySelector(".results-screen")) {
 
     const score = Number(localStorage.getItem("quizScore")) || 0;
 
-    const total = Number(localStorage.getItem("totalQuestions")) || 1;
+    let total = Number(localStorage.getItem("totalQuestions")) || 3;
+
+    if (document.getElementById('basketball-quiz')) {
+        total = 3;
+    }
 
     const finalScoreEl = document.getElementById("final-score");
 
     const percentEl = document.getElementById("percentage");
 
-    if (total > 1) {
-        const percent = Math.round((score / total) * 100);
+    if (total > 0) {
+        const percent = Math.min(100, Math.round((score / total) * 100));
         finalScoreEl.textContent = `You scored ${score} out of ${total}!`;
 
         percentEl.textContent = `${percent}%`;
+
+        // Trigger confetti only if perfect score
+        if (score === total) {
+            const canvas = document.getElementById("confetti-canvas");
+            if (canvas) {
+                canvas.style.display = "block";
+            }
+        }
     } else {
         finalScoreEl.textContent = "No score recorded.";
     }
@@ -111,58 +126,77 @@ if (document.querySelector(".results-screen")) {
     });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const home = document.getElementById("home");
+    if (home) {
+        const startButtons = home.querySelectorAll(".start-btn");
+        startButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const link = btn.getAttribute("data-link");
+                if (link) {
+                    window.location.href = link;
+                }
+            });
+        });
+    }
+});
+
 const canvas = document.getElementById("confetti-canvas");
-  const ctx = canvas.getContext("2d");
+if (canvas) {
+    const ctx = canvas.getContext("2d");
 
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
 
-  window.addEventListener("resize", resize);
-  resize();
+    window.addEventListener("resize", resize);
+    resize();
 
-  const pieces = Array.from({ length: 150 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height - canvas.height,
-    r: Math.random() * 6 + 4,
-    d: Math.random() * 6 + 2,
-    color: `hsl(${Math.random() * 360}, 80%, 60%)`,
-    tilt: Math.random() * 10
-  }));
+    const pieces = Array.from({ length: 150 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * 6 + 2,
+        color: `hsl(${Math.random() * 360}, 80%, 60%)`,
+        tilt: Math.random() * 10
+    }));
 
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    pieces.forEach(p => {
-      ctx.beginPath();
-      ctx.lineWidth = p.r;
-      ctx.strokeStyle = p.color;
-      ctx.moveTo(p.x + p.tilt, p.y);
-      ctx.lineTo(p.x, p.y + p.tilt + p.r);
-      ctx.stroke();
-    });
+        pieces.forEach(p => {
+            ctx.beginPath();
+            ctx.lineWidth = p.r;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt, p.y);
+            ctx.lineTo(p.x, p.y + p.tilt + p.r);
+            ctx.stroke();
+        });
 
-    update();
-  }
+        update();
+    }
 
-  let angle = 0;
+    let angle = 0;
 
-  function update() {
-    angle += 0.01;
+    function update() {
+        angle += 0.01;
 
-    pieces.forEach(p => {
-      p.y += Math.cos(angle) + p.d;
-      p.x += Math.sin(angle);
+        pieces.forEach(p => {
+            p.y += Math.cos(angle) + p.d;
+            p.x += Math.sin(angle);
 
-      if (p.y > canvas.height) {
-        p.y = -20;
-        p.x = Math.random() * canvas.width;
-      }
-    });
-  }
+            if (p.y > canvas.height) {
+                p.y = -20;
+                p.x = Math.random() * canvas.width;
+            }
+        });
+    }
 
-  (function animate() {
-    draw();
-    requestAnimationFrame(animate);
-  })();
+    (function animate() {
+        draw();
+        requestAnimationFrame(animate);
+    })();
+} else {
+    // If no canvas element, do nothing
+}
