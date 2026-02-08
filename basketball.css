@@ -1,0 +1,37 @@
+.basketball-quiz {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.basketball-quiz .answers {
+    display: grid;
+    gap: 12px;
+}
+
+.basketball-quiz .answer-btn {
+    background: #1e293b;
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.basketball-quiz .answer-btn:hover {
+    transform: scale(1.05);
+}
+
+.basketball-quiz .answer-btn.correct {
+    background: #16a34a;
+}
+
+.basketball-quiz .answer-btn.incorrect {
+    background: #dc2626;
+}
+
+.basketball-quiz .finish-btn {
+    background: #f59e0b;
+}
