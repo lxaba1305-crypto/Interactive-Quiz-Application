@@ -1,0 +1,48 @@
+/*Results Section*/
+
+.results-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    padding: 25px;
+    color: #ffffff;
+    background: #0f172a;
+    font-family: Arial, sans-serif;
+}
+
+.results-screen h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.results-screen p {
+    font-size: 1.2rem;
+    margin-bottom: 4px 0;
+}
+
+.results-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.results-buttons button {
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #22c55e;
+    color: white;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.results-buttons button:hover {
+    transform: scale(1.05);
+    background-color: #16a34a;
+}
