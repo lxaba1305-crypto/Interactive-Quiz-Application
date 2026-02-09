@@ -7,10 +7,11 @@
 
 body {
     background-image: url(Bafana2.jpeg);
-    background-size: auto;
+    background-size: auto; 
     background-position: center;
     text-align: center;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'monospace', monospace;
+    font-style: italic;
 }
 
 .app {
@@ -24,8 +25,8 @@ body {
 }
 
 .app h1 {
-    font-size: 50px;
-    color: lightgoldenrodyellow;
+    font-size: 45px;
+    color: yellowgreen;
     font-weight: 600;
     border-bottom: 1px solid #333;
     padding-bottom: 30px;
@@ -37,13 +38,13 @@ body {
 
 .quiz {
     padding: 20px 0;
-    text-align: center;
+    text-align: and justify;
 }
 
 .quiz h2 {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 600;
-    color: green;
+    color: yellowgreen;
     margin-bottom: 10px;
     text-align: center;
     opacity: 0.9;
@@ -102,7 +103,7 @@ body {
 }
 
 #next-btn:hover {
-    background: yellowgreen;
+    background: black;
     color: #fff;
     opacity: 0.9;
 }
