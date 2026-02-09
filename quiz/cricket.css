@@ -1,0 +1,113 @@
+body {
+  background-image: url("images/cricket-bg.jpg");
+  background-repeat: repeat;
+  background-size: 140px 140px;
+  background-position: center;
+  background-color: #0f172a;
+
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cricket-quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+
+  padding: 22px;
+  border-radius: 18px;
+  max-width: 900px;
+  margin: 40px auto;
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.65),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: white;
+}
+
+#score-text {
+  color: #22c55e;
+}
+
+#question-text {
+  font-size: 30px;
+  text-align: center;
+  color: white;
+}
+
+.answers {
+  display: grid;
+  gap: 12px;
+}
+
+.answer-btn {
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  color: white;
+
+  background: linear-gradient(135deg, #166534, #14532d);
+  transition: all 0.3s ease;
+}
+
+.answer-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #22c55e, #84cc16);
+}
+
+.answer-btn.correct {
+  background: #16a34a;
+}
+
+.answer-btn.incorrect {
+  background: #dc2626;
+}
+
+.action-btn {
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  background: #16a34a;
+  color: white;
+  cursor: pointer;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#feedback {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+}
+
+#feedback.show {
+  opacity: 1;
+}
