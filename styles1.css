@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(Bafana2.jpeg);
+    background-size: auto;
+    background-position: center;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.app {
+    background: none;
+    width: 90%;
+    max-width: 700px;
+    margin: 100px auto;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+}
+
+.app h1 {
+    font-size: 50px;
+    color: lightgoldenrodyellow;
+    font-weight: 600;
+    border-bottom: 1px solid #333;
+    padding-bottom: 30px;
+    text-align: center;
+    opacity: 0.9;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.quiz {
+    padding: 20px 0;
+    text-align: center;
+}
+
+.quiz h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: green;
+    margin-bottom: 10px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.btn {
+    background: #fff;
+    color: yellowgreen;
+    font-weight: 600;
+    font-size: 18px;
+    width: 320px;
+    height: 60px;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    border-radius: 16px;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    margin-left: 107px;
+}
+
+.btn:hover:not([disabled]) {
+    background: yellowgreen;
+    text-align: center;
+    color: #fff;
+    opacity: 0.9;
+
+}
+
+.btn:disabled {
+    cursor: no-drop;
+    opacity: 0.6;
+}
+
+.btn.correct {
+    background: #28a745;
+    color: white;}
+
+#next-btn {
+    background: whitesmoke;
+    color: yellowgreen;
+    font-weight: 500;
+    width: 150px;
+    border: 0;
+    padding: 10px;
+    margin: 20px auto 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+    display: none;
+    text-align: center;
+}
+
+#next-btn:hover {
+    background: yellowgreen;
+    color: #fff;
+    opacity: 0.9;
+}
+
+.correct {
+    background: #28a745;
+    
+}
+
+.incorrect {
+    background: #dc3545;
+    
+}
+
+.correct:hover {
+    background: #28a745;
+    border: 1px solid #28a745;
+    color: green;
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+.incorrect:hover {
+    background: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+    cursor: not-allowed;
+}
