@@ -24,7 +24,7 @@ if (document.getElementById('basketball-quiz')) {
         }
 
         updateScore() {
-            this.scoreText.textContent = `Score: ${this.score}`
+            this.scoreText.textContent = `Score: ${this.score} / ${this.total}`
         }
 
         attachEvents() {
@@ -53,6 +53,7 @@ if (document.getElementById('basketball-quiz')) {
 
             if (index === this.correctIndex) {
                 this.score++;
+                this.score = Math.min(this.score, this.total);
                 btn.classList.add("correct");
                 this.feedback.textContent = "Correct! 🏀";
                 this.feedback.classList.add("show", "correct");
@@ -81,20 +82,18 @@ if (document.getElementById('basketball-quiz')) {
 
 if (document.querySelector(".results-screen")) {
 
-    const score = Number(localStorage.getItem("quizScore")) || 0;
-
-    let total = Number(localStorage.getItem("totalQuestions")) || 3;
-
-    if (document.getElementById('basketball-quiz')) {
-        total = 3;
-    }
+    const total = 3;
+    const score = Math.min(
+        Number(localStorage.getItem("quizScore")) || 0,
+        total
+    );
 
     const finalScoreEl = document.getElementById("final-score");
 
     const percentEl = document.getElementById("percentage");
 
     if (total > 0) {
-        const percent = Math.min(100, Math.round((score / total) * 100));
+        const percent = Math.round((score / total) * 100);
         finalScoreEl.textContent = `You scored ${score} out of ${total}!`;
 
         percentEl.textContent = `${percent}%`;
@@ -106,17 +105,7 @@ if (document.querySelector(".results-screen")) {
                 canvas.style.display = "block";
             }
         }
-    } else {
-        selectedBtn.classList.add("incorrect");
     }
-
-    Array.from(answerButtons.children).forEach(button => {
-        if(button.dataset.correct === "true"){
-            button.classList.add("correct");
-        }
-        button.disabled = true;
-    });
-    nextButton.style.display = "block";
 
     function resize() {
         canvas.width = window.innerWidth;
