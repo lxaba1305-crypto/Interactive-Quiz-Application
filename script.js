@@ -173,3 +173,21 @@ if (document.querySelector(".results-screen")) {
 } else {
     // If no canvas element, do nothing
 }
+
+/* =====================
+   HOMEPAGE START BUTTONS
+===================== */
+document.addEventListener("DOMContentLoaded", () => {
+    const home = document.getElementById("home");
+    if (home) {
+        const startButtons = home.querySelectorAll(".start-btn");
+        startButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const link = btn.getAttribute("data-link");
+                if (link) {
+                    window.location.href = link;
+                }
+            });
+        });
+    }
+});
