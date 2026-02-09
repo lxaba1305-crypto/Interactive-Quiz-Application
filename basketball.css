@@ -1,35 +1,76 @@
 body {
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    background-image: url("Images/nba-logo.jpeg");
+    background-repeat: repeat;
+    background-size: 140px 140px;
+    background-position: center;
+    background-color: #0f172a;
+
     min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: -1;
+    pointer-events: none;
 }
 
 .basketball-quiz {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    background: linear-gradient(145deg, #cc5500, #993d00);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(204, 85, 0, 0.6);
+
+    background: rgba(15, 23, 42, 0.45);
+
+    backdrop-filter: blur(4px);
+
+    padding: 22px;
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.65),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+
     position: relative;
     z-index: 1;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+#progress-text {
+    letter-spacing: 1px;
+}
+
+#score-text {
+    color: #f97316;
 }
 
 .basketball-quiz::before {
     content: "";
     position: absolute;
-    top: -50px;
-    left: -50px;
-    right: -50px;
-    bottom: -50px;
-    background: radial-gradient(circle at center, rgba(153, 61, 0, 0.3), transparent 70%);
-    border-radius: 20px;
+    inset: -35px;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.06),
+        transparent 70%
+    );
+    border-radius: 22px;
     z-index: -1;
 }
 
-.basketball-quiz .question {
+#question-text {
     font-size: 34px;
     font-weight: bolder;
     text-align: center;
@@ -44,31 +85,47 @@ body {
 }
 
 .basketball-quiz .answer-btn {
-    background: linear-gradient(135deg, #004a99, #0073e6);
+    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+
     padding: 14px;
     border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+
     color: white;
     font-weight: bold;
     font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0, 115, 230, 0.5);
+
+    box-shadow: 0 6px 14px rgba(185, 28, 28, 0.55),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .basketball-quiz .answer-btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 0 12px 3px rgba(0, 115, 230, 0.8);
-    background: linear-gradient(135deg, #0066cc, #3399ff);
+    transform: translateY(-4px) scale(1.04);
+
+    background: linear-gradient(135deg, #dc2626, #f97316);
+
+    border-color: #fca5a5;
+
+    box-shadow:
+        0 10px 22px rgba(220, 38, 38, 0.7),
+        0 0 10px rgba(249, 115, 22, 0.6);
 }
 
 .basketball-quiz .answer-btn.correct {
-    background: linear-gradient(135deg, #003366, #001f4d);
-    box-shadow: 0 4px 8px rgba(0, 51, 102, 0.7);
+    background: linear-gradient(135deg, #16a34a, #065f46);
+    border-color: #22c55e;
 }
 
 .basketball-quiz .answer-btn.incorrect {
-    background: #8b0000;
-    box-shadow: 0 4px 8px rgba(139, 0, 0, 0.6);
+    background: linear-gradient(135deg, #dc2626, #7f1d1d);
+    border-color: #f87171;
 }
 
 .basketball-quiz .finish-btn {
