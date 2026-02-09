@@ -174,3 +174,30 @@ body::before {
     background-color: #dc3545;
     box-shadow: 0 4px 14px rgba(220, 53, 69, 0.85);
 }
+
+/* ===========================
+   BASKETBALL 2 PAGE ADJUSTMENTS
+=========================== */
+
+.question-text {
+    font-size: 34px;
+    font-weight: bolder;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* Ensure answers grid displays all buttons clearly */
+.basketball-quiz .answers {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+/* Adjust finish button to be fully visible on basketball2.html */
+.basketball-quiz .finish-btn {
+    align-self: center;
+    max-width: 300px;
+    width: 100%;
+}

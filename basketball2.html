@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basketball Question</title>
+    <title>Basketball2</title>
     <link rel="stylesheet" href="basketball.css">
 </head>
 <body>
-    
-    <section id="basketball-quiz" class="basketball-quiz">
 
-        <h2 class="question-text">
-                Who won the NBA Championship in 2016?
-            </h2>
+<section id="basketball-quiz" class="basketball-quiz">
 
-            <div class="answers">
-                <button class="answer-btn">Golden State Warriors</button>
-                <button class="answer-btn">Cleveland Cavaliers</button>
-                <button class="answer-btn">San Antonio Spurs</button>
-                <button class="answer-btn">Miami Heat</button>
-            </div>
-
+    <div class="quiz-header">
+            <span id="score-text">Score: 0</span>
         </div>
 
-        <p id="feedback" class="feedback"></p>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
 
-        <button id="finish-btn" class="finish-btn" disabled>Finish Quiz ➡️</button>
+    <h2 class="question-text">
+        Who won the NBA Championship in 2016?
+    </h2>
 
+    <div class="answers">
+        <button class="answer-btn">Golden State Warriors</button>
+        <button class="answer-btn">Cleveland Cavaliers</button>
+        <button class="answer-btn">San Antonio Spurs</button>
+        <button class="answer-btn">Miami Heat</button>
+    </div>
 
-        
-    </section>
-    <script src="script.js"></script>
+    <p id="feedback" class="feedback"></p>
+
+    <button id="finish-btn" class="finish-btn" disabled>Finish Quiz ➡️</button>
+
+</section>
+
+<script src="basketball2.js"></script>
 </body>
 </html>

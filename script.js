@@ -1,193 +1,215 @@
-if (document.getElementById('basketball-quiz')) {
+/* =====================
+   GLOBAL QUIZ HELPERS
+===================== */
 
-    class BasketballFinal {
-        constructor() {
-            this.button = document.querySelectorAll(".answer-btn")
-            this.finishBtn = document.getElementById("finish-btn")
-            this.feedback = document.getElementById("feedback")
-            this.scoreText = document.getElementById("score-text")
-
-            this.correctIndex = 1
-
-            this.answered = false
-
-            this.score =
-            Number(localStorage.getItem("quizScore")) || 0;
-
-            this.total = 3;
-
-            // Remove direct style manipulation; feedback will be controlled by CSS classes
-            this.feedback.classList.remove("show", "correct", "incorrect");
-
-            this.updateScore();
-            this.attachEvents()
-        }
-
-        updateScore() {
-            this.scoreText.textContent = `Score: ${this.score}`
-        }
-
-        attachEvents() {
-            this.button.forEach((btn, index) => {
-                btn.addEventListener("click", () => 
-                    this.selectAnswer(btn, index)
-                )
-            });
-            this.finishBtn.addEventListener("click", () =>
-                this.finishQuiz()
-            );
-        };
-
-        selectAnswer(btn, index) {
-            if (this.answered) return;
-
-            this.answered = true;
-
-            // Clear previous state
-            this.button.forEach(b =>
-                b.classList.remove("correct", "incorrect")
-            );
-
-            // Remove any previous feedback classes
-            this.feedback.classList.remove("show", "correct", "incorrect");
-
-            if (index === this.correctIndex) {
-                this.score++;
-                btn.classList.add("correct");
-                this.feedback.textContent = "Correct! 🏀";
-                this.feedback.classList.add("show", "correct");
-            } else {
-                btn.classList.add("incorrect");
-                this.button[this.correctIndex].classList.add("correct");
-                this.feedback.textContent = "Wrong! The correct answer was LeBron James.";
-                this.feedback.classList.add("show", "incorrect");
-            }
-
-            localStorage.setItem("quizScore", this.score);
-            localStorage.setItem("totalQuestions", 3);
-
-            this.updateScore();
-            this.finishBtn.disabled = false;
-        }
-
-        finishQuiz() {
-            window.location.href = "results.html";
-        }
-    }
-
-    new BasketballFinal();
-            
+function getScore() {
+  return Number(localStorage.getItem("quizScore")) || 0;
 }
 
-if (document.querySelector(".results-screen")) {
+function setScore(val) {
+  localStorage.setItem("quizScore", val);
+}
 
-    const score = Number(localStorage.getItem("quizScore")) || 0;
+function resetScore() {
+  localStorage.setItem("quizScore", 0);
+}
 
-    let total = Number(localStorage.getItem("totalQuestions")) || 3;
+function setTotal(val) {
+  localStorage.setItem("totalQuestions", val);
+}
 
-    if (document.getElementById('basketball-quiz')) {
-        total = 3;
-    }
+/* =====================
+   SOCCER QUIZZES
+===================== */
+if (document.querySelector(".quiz")) {
+  const answers = document.querySelectorAll(".btn");
+  const nextBtn = document.getElementById("next-btn");
+  let correctIndex;
 
-    const finalScoreEl = document.getElementById("final-score");
+  if (document.title.includes("Quiz 2")) {
+    correctIndex = 2; // Soccer Q2 correct answer
+  } else {
+    correctIndex = 1; // Soccer Q1 correct answer
+  }
 
-    const percentEl = document.getElementById("percentage");
+  answers.forEach((btn, idx) => {
+    btn.addEventListener("click", () => {
+      answers.forEach(b => b.disabled = true);
 
-    if (total > 0) {
-        const percent = Math.min(100, Math.round((score / total) * 100));
-        finalScoreEl.textContent = `You scored ${score} out of ${total}!`;
+      if (idx === correctIndex) {
+        btn.classList.add("correct");
+        setScore(getScore() + 1);
+      } else {
+        btn.classList.add("incorrect");
+        answers[correctIndex].classList.add("correct");
+      }
 
-        percentEl.textContent = `${percent}%`;
-
-        // Trigger confetti only if perfect score
-        if (score === total) {
-            const canvas = document.getElementById("confetti-canvas");
-            if (canvas) {
-                canvas.style.display = "block";
-            }
-        }
-    } else {
-        selectedBtn.classList.add("incorrect");
-    }
-
-    Array.from(answerButtons.children).forEach(button => {
-        if(button.dataset.correct === "true"){
-            button.classList.add("correct");
-        }
-        button.disabled = true;
+      nextBtn.style.display = "block";
     });
-    nextButton.style.display = "block";
+  });
 
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+  nextBtn.addEventListener("click", () => {
+    if (document.title.includes("Quiz 2")) {
+      // Go to cricket1.html after Soccer Q2
+      location.href = "Cricket.html";
+    } else {
+      // Go to Soccer Q2
+      location.href = "index2.html";
     }
+  });
+}
 
-    window.addEventListener("resize", resize);
-    resize();
+/* =====================
+   BASKETBALL QUIZ
+===================== */
+if (document.getElementById("basketball-quiz")) {
+  setTotal(3); // total questions for final score
 
-    const pieces = Array.from({ length: 150 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height - canvas.height,
-        r: Math.random() * 6 + 4,
-        d: Math.random() * 6 + 2,
-        color: `hsl(${Math.random() * 360}, 80%, 60%)`,
-        tilt: Math.random() * 10
-    }));
+  const buttons = Array.from(document.querySelectorAll(".answer-btn"));
+  const finishBtn = document.getElementById("finish-btn");
+  const feedback = document.getElementById("feedback");
+  const scoreText = document.getElementById("score-text");
 
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let correctIndex = 1; // LeBron James
+  let correctAnswerText = "LeBron James";
 
-        pieces.forEach(p => {
-            ctx.beginPath();
-            ctx.lineWidth = p.r;
-            ctx.strokeStyle = p.color;
-            ctx.moveTo(p.x + p.tilt, p.y);
-            ctx.lineTo(p.x, p.y + p.tilt + p.r);
-            ctx.stroke();
-        });
+  let answered = false;
 
-        update();
+  // Initialize score display
+  scoreText.textContent = `Score: ${getScore()}`;
+
+  buttons.forEach((btn, idx) => {
+    btn.disabled = false; // ensure buttons are clickable
+
+    btn.addEventListener("click", () => {
+      if (answered) return;
+      answered = true;
+
+      // Reset previous styles
+      buttons.forEach(b => b.classList.remove("correct", "incorrect"));
+      feedback.classList.remove("show", "correct", "incorrect");
+
+      if (idx === correctIndex) {
+        setScore(getScore() + 1);
+        btn.classList.add("correct");
+        feedback.textContent = "Correct! 🏀";
+        feedback.classList.add("show", "correct");
+      } else {
+        btn.classList.add("incorrect");
+        buttons[correctIndex].classList.add("correct");
+        feedback.textContent = `Wrong! Correct answer: ${correctAnswerText}.`;
+        feedback.classList.add("show", "incorrect");
+      }
+
+      // Update score display and enable finish button
+      scoreText.textContent = `Score: ${getScore()}`;
+      finishBtn.disabled = false;
+    });
+  });
+
+  finishBtn.addEventListener("click", () => {
+    // Go to second basketball question
+    location.href = "basketball2.html";
+  });
+}
+
+/* =====================
+   CRICKET QUIZZES
+===================== */
+if (document.querySelector(".cricket-quiz")) {
+  setTotal(3);
+
+  const buttons = document.querySelectorAll(".answer-btn");
+  const nextBtn = document.getElementById("next-btn") || document.getElementById("finish-btn");
+  const feedback = document.getElementById("feedback");
+  const scoreText = document.getElementById("score-text");
+
+  let correctIndex;
+  if (document.getElementById("cricket-q1")) {
+    correctIndex = 2; // Cricket Q1 correct answer
+  } else {
+    correctIndex = 0; // Cricket Q2 correct answer
+  }
+
+  let answered = false;
+  scoreText.textContent = `Score: ${getScore()}`;
+
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener("click", () => {
+      if (answered) return;
+      answered = true;
+
+      buttons.forEach(b => b.classList.remove("correct", "incorrect"));
+      feedback.classList.remove("show");
+
+      if (idx === correctIndex) {
+        setScore(getScore() + 1);
+        btn.classList.add("correct");
+        feedback.textContent = "Correct! 🏏";
+      } else {
+        btn.classList.add("incorrect");
+        buttons[correctIndex].classList.add("correct");
+        feedback.textContent = "Wrong!";
+      }
+
+      feedback.classList.add("show");
+      scoreText.textContent = `Score: ${getScore()}`;
+      nextBtn.disabled = false;
+    });
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (document.getElementById("cricket-q1")) {
+      // Go to Cricket2.html
+      location.href = "Cricket2.html";
+    } else {
+      // Go to Basketball.html
+      location.href = "Basketball.html";
     }
+  });
+}
 
-    let angle = 0;
+/* =====================
+   RESULTS PAGE
+===================== */
+if (document.querySelector(".results-screen")) {
+  const score = Math.min(Number(localStorage.getItem("quizScore")) || 0, 3);
+  const total = 3;
 
-    function update() {
-        angle += 0.01;
+  const finalScoreEl = document.getElementById("final-score");
+  const percentEl = document.getElementById("percentage");
 
-        pieces.forEach(p => {
-            p.y += Math.cos(angle) + p.d;
-            p.x += Math.sin(angle);
+  const percent = Math.round((score / total) * 100);
+  finalScoreEl.textContent = `You scored ${score} out of ${total}!`;
+  percentEl.textContent = `${percent}%`;
 
-            if (p.y > canvas.height) {
-                p.y = -20;
-                p.x = Math.random() * canvas.width;
-            }
-        });
-    }
+  if (score === total) {
+    const canvas = document.getElementById("confetti-canvas");
+    if (canvas) canvas.style.display = "block";
+  }
 
-    (function animate() {
-        draw();
-        requestAnimationFrame(animate);
-    })();
-} else {
-    // If no canvas element, do nothing
+  document.getElementById("retry-btn").onclick = () => {
+    resetScore();
+    location.href = "index1.html";
+  };
+  document.getElementById("home-btn").onclick = () => {
+    resetScore();
+    location.href = "index.html";
+  };
 }
 
 /* =====================
    HOMEPAGE START BUTTONS
 ===================== */
 document.addEventListener("DOMContentLoaded", () => {
-    const home = document.getElementById("home");
-    if (home) {
-        const startButtons = home.querySelectorAll(".start-btn");
-        startButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                const link = btn.getAttribute("data-link");
-                if (link) {
-                    window.location.href = link;
-                }
-            });
-        });
-    }
+  const home = document.getElementById("home");
+  if (home) {
+    const startButtons = home.querySelectorAll(".start-btn");
+    startButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const link = btn.getAttribute("data-link");
+        if (link) window.location.href = link;
+      });
+    });
+  }
 });

@@ -130,3 +130,79 @@
     }
 }
     
+
+
+/* =====================
+   BASKETBALL 2 PAGE ADJUSTMENTS
+===================== */
+
+.basketball-quiz {
+    background: rgba(15, 23, 42, 0.85); /* Ensure quiz section is visible */
+    padding: 22px;
+    border-radius: 18px;
+    max-width: 900px;
+    margin: 40px auto;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.65);
+    position: relative;
+    z-index: 1;
+}
+
+.basketball-quiz .answers {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.basketball-quiz .answer-btn {
+    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    border: 2px solid rgba(255,255,255,0.15);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.basketball-quiz .answer-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #dc2626, #f97316);
+}
+
+.basketball-quiz .answer-btn.correct {
+    background: linear-gradient(135deg, #16a34a, #065f46);
+    border-color: #22c55e;
+}
+
+.basketball-quiz .answer-btn.incorrect {
+    background: linear-gradient(135deg, #dc2626, #7f1d1d);
+    border-color: #f87171;
+}
+
+.basketball-quiz .finish-btn {
+    background: #cc5500;
+    color: white;
+    font-weight: bold;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+#feedback {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#feedback.show {
+    opacity: 1;
+}
